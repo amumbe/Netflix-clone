@@ -2,4 +2,4 @@ from django.shortcuts import render
 
 # Create your views here.
 def Home(request):
-    return render(request, 'index.html')
+    return render(request, 'netflixapp/index.html')
