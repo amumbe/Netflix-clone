@@ -5,7 +5,7 @@ import uuid
 
 # Create your models here.
 
-AGE_LIMIT = (
+AGE_CHOICES = (
     ("All", "All"),
     ("Kids", "Kids"),
 )
@@ -17,13 +17,16 @@ MOVIE_CHOICES =(
 
 
 class CustomUser(AbstractUser):
-    profiles = models.models.ManyToManyField("Profile", blank=True)
+    profiles = models.ManyToManyField("Profile", blank=True)
 
 
 class Profile(models.Model):
     name = models.CharField(max_length=1000)
-    age_limit = models.CharField(choices=AGE_LIMIT, max_length=10)
+    age_limit = models.CharField(choices=AGE_CHOICES, max_length=10)
     uuid = models.UUIDField(default=uuid.uuid4)
+
+    def __str__(self):
+        return self.name
 
 
 class Movie(models.Model):
@@ -32,4 +35,22 @@ class Movie(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     uuid = models.UUIDField(default= uuid.uuid4)
     type = models.CharField(choices = MOVIE_CHOICES, max_length = 100 )
+    video = models.ManyToManyField('video')
+    image = models.ImageField(upload_to='covers')
+    age_limit = models.CharField(choices=AGE_CHOICES, max_length=10)
+
+
+    def __str__(self):
+        return self.title
+    
+
+class Video(models.Model):
+    title = models.CharField(max_length=1000)
+    file = models.FileField(upload_to='movies')
+
+
+    def __str__(self):
+        return self.title
+
+
 
