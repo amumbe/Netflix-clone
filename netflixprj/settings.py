@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "netflixapp",
-    #"django.contrib.sites",
+    # "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -61,7 +61,7 @@ ROOT_URLCONF = "netflixprj.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -120,13 +120,10 @@ USE_TZ = True
 
 
 AUTHENTICATION_BACKENDS = [
-    
     # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
+    "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # Static files (CSS, JavaScript, Images)
@@ -135,16 +132,23 @@ AUTHENTICATION_BACKENDS = [
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-AUTH_USER_MODEL = 'netflixapp.CustomUser'
+AUTH_USER_MODEL = "netflixapp.CustomUser"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # LOGIN_REDIRECT_URL = ''
 # LOGIN_URL = 'login'
-# LOGOUT_REDIRECT_URL =
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = "login"
+
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_USERNAME_REQUIRED = False

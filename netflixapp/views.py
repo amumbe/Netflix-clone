@@ -4,6 +4,6 @@ from django.views import View
 # Create your views here.
 class Home(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'netflixapp/index.html')
+        return render(request, 'index.html')
         
 
